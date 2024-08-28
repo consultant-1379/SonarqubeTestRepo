@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+
+	
+	<head>
+		<title>CMC login form</title>
+	</head>
+	
+	<body>
+	
+	
+		<form id="_id2" method="post" action="FORM_ACTION" enctype="application/x-www-form-urlencoded">
+
+			
+			<div class="logonComponent">
+				<div class="logonInstruction">
+					<div class="logonFirstInstruction">
+						Enter your user information, and click "Log On".
+					</div>
+					<div class="logonSecondInstruction">
+						If you are unsure of your account information, contact your system
+						administrator.
+					</div>
+				</div>
+
+				<div class="logonFields logon_table">
+					<div class="logonRow" id="_id2:logon:CMS:row">
+						<div class="logonLabel">
+							<label for="_id2:logon:CMS">System:</label>
+						</div>
+						<div class="logonInput">
+							<input type="text" id="_id2:logon:CMS" name="_id2:logon:CMS"
+								value="CMS_SERVER">
+						</div>
+
+					</div>
+					<div class="logonRow" id="_id2:logon:SAP_SYSTEM:row" style="display: none;">
+						<div class="logonLabel">
+							<label for="_id2:logon:SAP_SYSTEM">SAP System:</label>
+						</div>
+						<div class="logonInput logonSAP">
+							<input type="text" id="_id2:logon:SAP_SYSTEM" name="_id2:logon:SAP_SYSTEM"
+								size="3" maxlength="3">
+						</div>
+
+					</div>
+					<div class="logonRow" id="_id2:logon:SAP_CLIENT:row" style="display: none;">
+						<div class="logonLabel">
+							<label for="_id2:logon:SAP_CLIENT">SAP Client:</label>
+						</div>
+						<div class="logonInput logonSAP">
+							<input type="text" id="_id2:logon:SAP_CLIENT" name="_id2:logon:SAP_CLIENT"
+								size="3" maxlength="3">
+						</div>
+
+					</div>
+					<div class="logonRow" id="_id2:logon:USERNAME:row">
+						<div class="logonLabel">
+							<label for="_id2:logon:USERNAME">User Name:</label>
+						</div>
+						<div class="logonInput">
+							<input type="text" id="_id2:logon:USERNAME" name="_id2:logon:USERNAME" value="Username">
+						</div>
+
+					</div>
+					<div class="logonRow" id="_id2:logon:PASSWORD:row">
+						<div class="logonLabel">
+							<label for="_id2:logon:PASSWORD">Password:</label>
+						</div>
+						<div class="logonInput">
+							<input type="password" id="_id2:logon:PASSWORD" name="_id2:logon:PASSWORD" value="SSO_Token">
+						</div>
+
+					</div>
+					<div class="logonRow" id="_id2:logon:AUTH_TYPE:row">
+						<div class="logonLabel">
+							<label for="_id2:logon:AUTH_TYPE">Authentication:</label>
+						</div>
+						<div class="logonInput">
+							<select id="_id2:logon:AUTH_TYPE" name="_id2:logon:AUTH_TYPE">
+								<option value="secEnterprise">Enterprise</option>
+								<option value="secLDAP">LDAP</option>
+								<option selected="selected" value="secWinAD">Windows AD</option>
+								<option value="secSAPR3">SAP</option>
+								<option value="secPSE1">JD Edwards EnterpriseOne</option>
+								<option value="secOraApps">Oracle EBS</option>
+								<option value="secpsenterprise">PeopleSoft Enterprise</option>
+								<option value="secSiebel7">Siebel7</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<div class="logonButton">
+					<input type="submit" id="_id2:logon:logonButton" value="Log On"
+						class="logonButtonNoHover logon_button_no_hover" onmouseover="this.className = 'logonButtonHover logon_button_hover';"
+						onmouseout="this.className = 'logonButtonNoHover logon_button_no_hover';">
+				</div>
+				
+				
+				<div class="logonButton">
+					<input type="button" value="Test submit" onclick="onSubmit();">
+				</div>
+
+			</div>
+
+
+			<input type="hidden" name="com.sun.faces.VIEW" id="com.sun.faces.VIEW" value="CSF_VIEW">
+			<input type="hidden" name="_id2" value="_id2">
+					
+		</form>
+	</body>
+	
+	<script type="text/javascript">
+	
+		function onSubmit(){
+			
+			var xhttp = new XMLHttpRequest();
+			xhttp.onreadystatechange = function() {
+			    if (this.readyState == 4 && this.status == 200) {
+			       	// Extract com.sun.faces.VIEW
+			        window.alert(this.responseXML);
+			       	console.log(this.responseXML);
+			    }
+			};
+			
+			var authenticationURL = document.getElementById('_id2').action;
+			
+			xhttp.open("GET", authenticationURL, true);
+			xhttp.setRequestHeader("Access-Control-Allow-Headers","*");
+			xhttp.send(); 
+			return false;
+		}
+	
+	</script>
+	
+	<!-- 
+	<script>document.getElementById('_id2').submit();</script>
+	 -->
+</html>

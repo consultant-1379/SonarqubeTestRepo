@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.ci.execution</groupId>
+	<artifactId>SonarqubeTestRepo</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>sso-utilities-model-jar-SQTest</artifactId>
+    <packaging>jar</packaging>
+    <name>[sso-utilities-model] JAR module SQTest</name>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>${project.parent.groupId}</groupId>
+            <artifactId>SonarqubeTestRepo-api-SQTest</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-all-models-to-model-processing</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <includeEmptyDirs>false</includeEmptyDirs>
+                            <outputDirectory>model-build/etc/model</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>etc/model</directory>
+                                    <includes>
+                                        <include>**/*.xml</include>
+                                    </includes>
+                                    <filtering>true</filtering>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>com.ericsson.oss.itpf.modeling.tools</groupId>
+                <artifactId>model-processing-jar</artifactId>
+
+                <!-- Inside plugin element, the version of the MP must be explicitly 
+                    specified. Be sure it is the same as denoted by the BOM. -->
+                <version>${modeling-sdk.modelproc.version}</version>
+
+                <executions>
+                    <execution>
+                        <id>process-models</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>modelproc</goal>
+                        </goals>
+                        <configuration>
+                            <modelBuildDir>model-build</modelBuildDir>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>build-helper-maven-plugin</artifactId>
+                <version>1.7</version>
+                <executions>
+                    <execution>
+                        <id>add-model-processing-dir-as-resources</id>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>add-resource</goal>
+                        </goals>
+                        <configuration>
+                            <resources>
+                                <resource>
+                                    <directory>model-build</directory>
+                                    <excludes>
+                                        <exclude>**/*.gitignore</exclude>
+                                    </excludes>
+                                    <targetPath>modeling</targetPath>   <!-- Very important, do not change -->
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+        </plugins>
+    </build>
+
+</project>

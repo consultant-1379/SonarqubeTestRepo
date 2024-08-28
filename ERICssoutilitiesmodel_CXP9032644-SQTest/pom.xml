@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.ci.execution</groupId>
+	<artifactId>SonarqubeTestRepo</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    </parent>
+
+    <artifactId>ERICssoutilitiesmodel_CXP9032644-SQTest</artifactId>
+    <packaging>${rpm.packaging}</packaging>
+
+    <name>ERICssoutilitiesmodel CXP module -SQTest</name>
+
+    <properties>
+        <rpm.name>${project.artifactId}</rpm.name>
+        <rpm.version>${project.version}</rpm.version>
+        <publish_artifact>true</publish_artifact>
+        <media.category>model</media.category>
+        <com.ericsson.oss.rpm.architecture>noarch</com.ericsson.oss.rpm.architecture>
+        <rpm-root>var/opt/ericsson</rpm-root>
+        <comp-name>ERICmodeldeployment</comp-name>
+        <install-path>data/install</install-path>
+    </properties>
+
+    <dependencies>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>sso-utilities-model-jar-SQTest</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
+
+    <build>
+        <finalName>${project.parent.artifactId}-${project.version}</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>com.ericsson.oss.itpf.deployment</groupId>
+                <artifactId>deployment-descriptor-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>configurable-entity</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configEntity>
+                        <stereotype>MODEL_PKG</stereotype>
+                        <parameters>
+                            <itemType name="model-package">
+                                <property name="name" defaultValue="ERICssoutilitiesmodel_CXP9032644" />
+                            </itemType>
+                        </parameters>
+                    </configEntity>
+                </configuration>
+
+            </plugin>
+
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>rpm-maven-plugin</artifactId>
+                <extensions>true</extensions>
+                <configuration>
+                    <copyright>2013 Ericsson AB All rights reserved</copyright>
+                    <group>ERI-NMS</group>
+                    <name>${rpm.name}</name>
+                    <versionProperty>${rpm.version}</versionProperty>
+                    <vendor>Ericsson AB</vendor>
+                    <summary>ENM Sso Utilities Model Model</summary>
+
+                    <mappings combine.self="override">
+
+                        <mapping>
+                            <directory>/${rpm-root}/${comp-name}/${install-path}</directory>
+                            <!-- <directory>/var/opt/ericsson/ERICmodeldeployment/data/install</directory> -->
+                            <filemode>775</filemode>
+                            <username>mdtuser</username>
+                            <groupname>mdtuser</groupname>
+                            <configuration>false</configuration>
+                            <directoryIncluded>true</directoryIncluded>
+                            <recurseDirectories>true</recurseDirectories>
+                            <dependency>
+                                <includes>
+                                    <include>com.ericsson.oss.itpf.security.sso:sso-utilities-model-jar-SQTest</include>
+                                </includes>
+                            </dependency>
+                        </mapping>
+
+                    </mappings>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+</project>

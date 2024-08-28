@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.ericsson.ci.execution</groupId>
+	<artifactId>SonarqubeTestRepo</artifactId>
+    <version>1.0.1-SNAPSHOT</version>
+    </parent>
+    <artifactId>SonarqubeTestRepo-ejb-SQTest</artifactId>
+    <packaging>ejb</packaging>
+
+    <name>[${project.parent.artifactId}] EJB module SQTest</name>
+
+    <properties>
+        <version.maven-ejb-plugin>2.3</version.maven-ejb-plugin>
+    </properties>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.jboss.spec</groupId>
+            <artifactId>jboss-javaee-6.0</artifactId>
+            <version>${version.jboss-javaee}</version>
+            <type>pom</type>
+            <scope>provided</scope>
+        </dependency>
+
+
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-api-SQTest</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-jar-SQTest</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>${project.parent.artifactId}-dao-SQTest</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <!-- Basic dependency for JEE applications, as defined in Java EE Specification APIs -->
+        <dependency>
+            <groupId>org.forgerock.openam</groupId>
+            <artifactId>ClientSDK</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>jaxrs-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.forgerock.opendj</groupId>
+            <artifactId>opendj-ldap-sdk</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.forgerock.opendj</groupId>
+            <artifactId>grizzly-framework</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>org.forgerock.opendj</groupId>
+            <artifactId>i18n-core</artifactId>
+        </dependency>
+
+
+        <!-- Dependencies to Service Framework API modules (like sdk-xxx-api) can be added here for compilation purpose only.
+            Only add those Service Framework API dependencies which are used in this project module, and they must be marked as "provided"
+            scope. -->
+        <!-- Dependencies to Service Framework implementation modules (like sdk-xxx) must not be added here. -->
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-security-accesscontrol-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>service-framework-dist</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-config-api</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-api-mockito</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.powermock</groupId>
+            <artifactId>powermock-module-junit4</artifactId>
+        </dependency>
+
+
+
+        <!--dependency>
+            <groupId>javax</groupId>
+            <artifactId>javaee-api</artifactId>
+            <scope>provided</scope>
+        </dependency-->
+        <!-- Spock and CDI Support tests -->
+
+
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${version.groovy}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.spockframework</groupId>
+            <artifactId>spock-core</artifactId>
+            <version>${version.spock}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.cds</groupId>
+            <artifactId>cdi-test-support</artifactId>
+            <version>${version.cdi.test.support}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.hamcrest</groupId>
+            <artifactId>hamcrest-all</artifactId>
+            <version>${version.hamcrest-all}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>cglib</groupId>
+            <artifactId>cglib-nodep</artifactId>
+            <version>${version.cglib-nodep}</version>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mockito</groupId>
+            <artifactId>mockito-all</artifactId>
+            <version>1.10.19</version>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.sdk</groupId>
+            <artifactId>sdk-resources-api</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.ericsson.oss.itpf.security.cryptography</groupId>
+            <artifactId>cryptography-service-api-jar</artifactId>
+            <scope>provided</scope>
+        </dependency>
+
+
+
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+            <resource>
+                <directory>src/main/java</directory>
+                <includes>
+                    <include>**/*.properties</include>
+                </includes>
+            </resource>
+        </resources>
+        <plugins>
+            <!-- This plugin generates J2EE Enterprise Javabean (EJB) file as well as the associated client jar. -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-ejb-plugin</artifactId>
+                <version>${version.maven-ejb-plugin}</version>
+                <configuration>
+                    <ejbVersion>${version.ejb}</ejbVersion>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jboss.as.plugins</groupId>
+                <artifactId>jboss-as-maven-plugin</artifactId>
+                <configuration>
+                    <skip>true</skip>
+                </configuration>
+            </plugin>
+            <plugin>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <configuration>
+                    <threadCount>1</threadCount>
+                    <useSystemClassLoader>true</useSystemClassLoader>
+                    <useManifestOnlyJar>false</useManifestOnlyJar>
+                    <useFile>false</useFile>
+                    <includes>
+                        <include>**/*Spec.java</include>
+                        <include>**/*Test.java</include>
+                    </includes>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>1.4</version>
+                <configuration>
+                    <providerSelection>2.0</providerSelection>
+                    <source />
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>compile</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+
+                    <dependency>
+                        <groupId>org.codehaus.gmaven.runtime</groupId>
+                        <artifactId>gmaven-runtime-2.0</artifactId>
+                        <version>1.4</version>
+                        <exclusions>
+                            <exclusion>
+                                <groupId>org.codehaus.groovy</groupId>
+                                <artifactId>groovy-all</artifactId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>${version.groovy}</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+        </plugins>
+    </build>
+
+
+</project>

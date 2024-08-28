@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.ericsson.oss.services.test</groupId>
+		<artifactId>cucumber-testsuite-integration-pom</artifactId>
+		<version>RELEASE</version>
+		<relativePath />
+	</parent>
+
+	<artifactId>vertical-slice</artifactId>
+	<version>1.0.48-SNAPSHOT</version>
+
+	<packaging>pom</packaging>
+	<name>[${project.artifactId}]</name>
+
+	<properties>
+		<media.category>testware</media.category>
+		<version.shared-test-tools>RELEASE</version.shared-test-tools>
+		<version.java.json>20160810</version.java.json>
+	</properties>
+
+	<modules>
+		<module>sso-utilities-service-cucumber-steps</module>
+	</modules>
+</project>
